@@ -1,23 +1,29 @@
 def balance_parentheses(s: str) -> str:
     if not s:
         return ""
-
+    
+    stack = []
+    removed = set()
     res = ""
-    stack = set()
-    removal = set()
 
     for i in range(len(s)):
         if s[i] == "(":
-            stack.add(i)
+            stack.append(i)
         elif not stack:
-            removal.add(i)
+            removed.add(i)
         else:
             stack.pop()
+        
+    for i in stack:
+        removed.add(i)
     
-    return "".join(
-        char for i, char in enumerate(s)
-        if i not in stack and i not in removal
-    )
+    for i in range(len(s)):
+        if i in removed:
+            continue
+            
+        res += s[i]
+
+    return res        
 
 def test():
     # Each case gives the minimum number of deletions.

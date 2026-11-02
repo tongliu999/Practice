@@ -1,5 +1,4 @@
 def kth_largest(a: list[int], b: list[int], k: int) -> int:
-    # Search the shorter array.
     if len(a) > len(b):
         a, b = b, a
 
@@ -20,8 +19,7 @@ def kth_largest(a: list[int], b: list[int], k: int) -> int:
         a_unselected = a[i - 1] if i > 0 else float("-inf")
         b_unselected = b[j - 1] if j > 0 else float("-inf")
 
-        if (a_selected >= b_unselected
-                and b_selected >= a_unselected):
+        if (a_selected >= b_unselected and b_selected >= a_unselected):
             return min(a_selected, b_selected)
 
         if a_selected < b_unselected:

@@ -39,7 +39,6 @@ def assign_documents_top_k(
     
     heap = []
 
-
     for i in range(len(workers)):
         heapq.heappush(heap, (workers[i], i))
         if len(heap) > k:

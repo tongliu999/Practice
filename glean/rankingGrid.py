@@ -1,21 +1,27 @@
 import heapq
 
 def matrix_ranks(matrix: list[list[int]]) -> list[list[int]]:
-    rows = [1] * len(matrix)
-    cols = [1] * len(matrix[0])
     heap = []
+    row_rank = [0] * len(matrix)
+    col_rank = [0] * len(matrix[0])
 
+    if not matrix:
+        return []
+
+    # part 1: build a heap with all nums and their coords
     for row in range(len(matrix)):
         for col in range(len(matrix[0])):
-            heapq.heappush(heap, (matrix[row][col], row, col))
+            heapq.heappush(heap, (matrix[row][col], (row, col)))
 
+    # part 2: go through the heap and replace the numbers with their rank, keep track of the current rank of each col and row
     while heap:
-        value, row, col = heapq.heappop(heap)
+        value, coord = heapq.heappop(heap)
+        row, col = coord
 
-        rank = max(rows[row], cols[col])
+        rank = max(row_rank[row], col_rank[col]) + 1
         matrix[row][col] = rank
-        rows[row] = rank + 1
-        cols[col] = rank + 1
+        row_rank[row] = rank
+        col_rank[col] = rank
     
     return matrix
 
